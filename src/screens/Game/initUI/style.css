@@ -1,0 +1,79 @@
+.txt {
+    white-space: nowrap;
+    font-size: 2em;
+    font-family: monospace;
+    color: #ffe6d5;
+    user-select: none;
+    transition: opacity 0.25s linear;
+}
+.tooltip {
+    composes: txt;
+    color: #ffe6d5;
+    background: black;
+    margin-left: -16px;
+    font-size: 1.5em;
+    padding: 10px 16px;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.tooltip:before {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 12px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+.timer {
+    font-family: monospace;
+    color: #ffe6d5;
+    font-size: 16px;
+    letter-spacing: 2px;
+    user-select: none;
+    transition: opacity 0.25s linear;
+    border-radius: 5px;
+}
+.hidden {
+    opacity: 0;
+    transition: opacity 0.25s linear;
+}
+.overlay {
+    border-radius: 5px;
+    background: #333366;
+    opacity: 0;
+    z-index: 9999;
+    transition: opacity 1s linear;
+}
+.time {
+    color: #ffe6d5;
+    font-size: 16px;
+    font-family: monospace;
+    white-space: nowrap;
+    z-index: 99999;
+    transition: opacity 1s linear;
+}
+.timeVal {
+    color: #fa664b;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: monospace;
+    white-space: nowrap;
+    z-index: 99999;
+    transition: opacity 1s linear;
+}
+.recTimeVal {
+    color: #e0c6e0;
+}
+.continue {
+    z-index: 99999;
+    transition: opacity 1s linear;
+}
+.dead {
+    display: none;
+}
+.blurOverlay {
+    background:rgba(0, 0, 0, 0.5); 
+    z-index: 99;
+    display: none;
+}

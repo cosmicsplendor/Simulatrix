@@ -1,0 +1,46 @@
+.imgBtn {
+    background-color: transparent;
+    cursor: pointer;
+    transition: opacity 0.25s linear;
+}
+
+.loadingDot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ffe6d5;
+    animation-name: loading;
+    animation-duration: 0.75s;
+    animation-iteration-count: infinite;
+}
+.dotA {
+    animation-delay: 0s;
+}
+.dotB {
+    animation-delay: 0.25s;
+    margin-left: 16px;
+}
+.dotC {
+    animation-delay: 0.5s;
+    margin-left: 32px;
+}
+@keyframes loading {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+.playBtn {
+    background: #eeeeee;
+    font-size: 1.5em;
+    color: #e15c22;
+    padding: 0.55em;
+    border-radius: 0.2em;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: monospace;
+    letter-spacing: 1px;
+    user-select: none;
+}
+.playBtn:hover, .playBtn:active, .playBtn:focus {
+    box-shadow: 0px 0px 3px 3px #7a371c;
+}
