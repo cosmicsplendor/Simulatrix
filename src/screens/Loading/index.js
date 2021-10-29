@@ -1,5 +1,4 @@
 import { Node } from "@lib"
-import initUI from "./initUI"
 import { MAIN_MENU } from "@screens/names"
 
 class LoadingScreen extends Node {
