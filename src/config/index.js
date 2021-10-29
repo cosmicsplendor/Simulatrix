@@ -1,7 +1,4 @@
 import Viewport  from "@utils/ViewPort"
-import GPix from "../helpers/sdk/strategies/GPix"
-import LocStorage from "../helpers/storage/strategies/LocStorage"
-import GPixStorage from "../helpers/storage/strategies/GPixStorage"
 
 /**
  * config checklist:
@@ -56,7 +53,4 @@ export default Object.freeze({
     get devicePixelRatio() {
         return Math.min(isMobile ? maxMobileDpr: maxDpr, window.devicePixelRatio)
     },
-    SDKStrat: null,
-    StorageStrat: LocStorage,
-    orientation: "portrait"
 })
