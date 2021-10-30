@@ -1,12 +1,21 @@
+import { Node } from "@lib"
+import Location1 from "./Location1"
 class World extends Node {
     children = []
-    constructor(locations) {
+    constructor({ assetsCache }) {
+        super({ })
+        const locations = [ Location1 ]
         const next = () => {
             if (locations.length === 0) { return }
             const NextLocationConstructor = locations.pop()
-            const newLocation = NextLocationConstructor(next)
-            this.children.forEach(child => child.remove()) // clear and destroy children
-            this.add(newLocation) // add new child
+            const dataUrl = NextLocationConstructor.dataUrl
+            assetsCache.load([ dataUrl ])
+            assetsCache.once("load", () => {
+                const data = assetsCache.get(dataUrl)
+                const newLocation = new NextLocationConstructor({ data, next })
+                this.children.forEach(child => child.remove()) // clear and destroy children
+                this.add(newLocation) // add new child
+            })
         }
         next()
     }
