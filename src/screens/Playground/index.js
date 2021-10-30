@@ -8,14 +8,14 @@ class Playground extends Node {
         super()
         this.game = game
         this.uiRoot = uiRoot
+        const { assetsCache } = game
         const addDirtyRect = (...params) => {
             game.renderer.addDirtyRect(...params)
         }
-        const world = new World(addDirtyRect)
-        this.add(world)
     }
     onEnter() {
-
+        const world = new World({ assetsCache: this.game.assetsCache })
+        this.add(world)
     }
 }
 
