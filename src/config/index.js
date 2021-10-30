@@ -8,14 +8,14 @@ import Viewport  from "@utils/ViewPort"
  */
 
 const resolutions = {
-    standard: { max: 1000, min: 750 }
+    standard: { max: 1920, min: 1080 }
 }
 
 const desktopRes = resolutions.standard
 
 const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
 const scale = false
-const maxDpr = 1.15
+const maxDpr = 1
 const maxMobileDpr = 1.5
 const computeViewport = () => {
     const width = window.innerWidth, height = window.innerHeight // drawing buffer dimensions (how manny actual pixels are there in the screen regardless of scaling)
