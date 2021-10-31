@@ -1,5 +1,5 @@
 import TiledLevel from "@lib/utils/TiledLevel"
-import worldDataUrl from "./data/location1.cson"
+import worldDataUrl from "./data.cson"
 
 class Location1 extends TiledLevel {
     static dataUrl = worldDataUrl
