@@ -12,6 +12,7 @@ class Playground extends Node {
         const addDirtyRect = (...params) => {
             game.renderer.addDirtyRect(...params)
         }
+        game.renderer.tint = [ 0.05, -0.025, -0.0125, 0 ]
     }
     onEnter() {
         const world = new World({ assetsCache: this.game.assetsCache })
