@@ -19,9 +19,11 @@ class Surface extends Node {
         this.maxHeight = elHeight
         this.yMax = y + this.maxHeight
 
+        this.meanHeight = 24
+        this.overflowHeight = this.meanHeight
         this.t = 0
-        this.amp = 12
-        this.period = Math.PI / 2
+        this.amp = 6
+        this.period = Math.PI
     }
     set overflowHeight(val) {
         const newHeight = clamp(0, this.maxHeight, Math.round(val))
@@ -38,8 +40,9 @@ class Surface extends Node {
         this.t += dt
         if (this.t > this.period) {
             this.t = 0
+            this.amp = this.amp - 0 // amplitude decays exponentially
         }
-        this.overflowHeight = this.amp * Math.sin(2 * this.t)
+        this.overflowHeight = this.meanHeight + this.amp * Math.sin(2 * this.t) * Math.sin(2 * this.t)
     }
 }
 
