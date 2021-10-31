@@ -1,10 +1,14 @@
 import TiledLevel from "@lib/utils/TiledLevel"
 import worldDataUrl from "./data.cson"
 import Crate from "./Crate"
+import Surface from "./Surface"
 
 const factories = {
-    "crate": (x, y) => {
-        return new Crate({ pos: {x, y } })
+    "crate": (x, y, props) => {
+        return new Crate({ pos: {x, y}, ...props })
+    },
+    "surface": (x, y, props) => {
+        return new Surface({ pos: { x, y }, numEl: props.numEl })
     }
 }
 
