@@ -8,11 +8,12 @@ import FallingDown from "./states/FallingDown"
 import Decelerating from "./States/Decelerating"
 import Floating from "./states/Floating"
 import Sinking from "./states/Sinking"
+import Bubbling from "./states/Bubbling"
 import initUI from "./initUI"
 
 export default class Crate extends TexRegion {
     velY = 0
-    constructor({ equilibriumY, surfaceY, bottomY, uiRoot, assetsCache, ...rest }) {
+    constructor({ equilibriumY, surfaceY, uiRoot, assetsCache, ...rest }) {
         super({ frame: "crate", ...rest })
         const uiImages = {
             arrowGreen: assetsCache.get(arrowGreenId),
@@ -24,7 +25,8 @@ export default class Crate extends TexRegion {
             "falling-down": new FallingDown(this, surfaceY),
             "decelerating": new Decelerating(this, equilibriumY),
             "floating": new Floating(this),
-            "sinking": new Sinking(this, bottomY, ui)
+            "sinking": new Sinking(this, equilibriumY, ui),
+            "bubbling": new Bubbling(this)
         }
         this.switchState = (name, ...params) => {
             this.state = states[name]
