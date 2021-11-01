@@ -4,12 +4,13 @@ import { easingFns } from "@lib/utils/math"
 const gravity = 2500
 export default class Crate extends TexRegion {
     velY = 0
-    constructor({ equilibriumY, surfaceY, ...rest }) {
+    constructor({ equilibriumY, surfaceY, bottomY, ...rest }) {
         super({ frame: "crate", ...rest })
         const states = {
-            "falling-down": new FallingDown(this, gravity, surfaceY - this.h),
+            "falling-down": new FallingDown(this, gravity, surfaceY),
             "decelerating": new Decelerating(this, equilibriumY),
-            "floating": new Floating(this)
+            "floating": new Floating(this),
+            "sinking": new Sinking(this, bottomY)
         }
         this.switchState = (name, ...params) => {
             this.state = states[name]
@@ -25,15 +26,16 @@ export default class Crate extends TexRegion {
 }
 
 class FallingDown {
-    constructor(crate, gravity, maxY) {
+    constructor(crate, gravity, surfaceY) {
         this.crate = crate
         this.gravity = gravity
-        this.maxY = maxY
+        this.maxY = surfaceY - crate.h
     }
     update(dt) {
         this.crate.velY += 0.5 * this.gravity * dt
         this.crate.pos.y += 0.5 * this.crate.velY * dt
         if (this.crate.pos.y > this.maxY) {
+            this.crate.velY = 0
             this.crate.pos.y = this.maxY
             this.crate.switchState("decelerating")
         }
@@ -65,6 +67,7 @@ class Decelerating {
 
 class Floating {
     meanY = null
+    timeout = 4
     constructor(crate) {
         this.crate = crate
 
@@ -75,12 +78,43 @@ class Floating {
     onEnter() {
         this.meanY = this.crate.pos.y
     }
+    updateTimeout(dt) {
+        this.timeout -= dt
+        if (this.timeout < 0) {
+            this.crate.switchState("sinking")
+        }
+    }
     update(dt) {
         this.t += dt
+
+        this.updateTimeout(dt)
+
         if (this.t > this.period) {
             this.t = 0
             this.amp = this.amp * 0.9 // amplitude decays exponentially
         }
         this.crate.pos.y = this.meanY - this.amp * Math.sin(2 * this.t)
+    }
+}
+
+class Sinking {
+    t = 0
+    timeToTouchdown = 2
+    distToBottom = null
+    sartingPosY = null
+    constructor(crate, bottomY) {
+        this.crate = crate
+        this.maxY = bottomY - crate.h
+    }
+    onEnter() {
+        this.startingPosY = this.crate.pos.y
+        this.distToBottom = this.maxY - this.startingPosY
+    }
+    update(dt) {
+        this.t += dt
+        if (this.t >= this.timeToTouchdown) {
+            return
+        }
+        this.crate.pos.y = this.startingPosY + this.distToBottom * easingFns.smoothStep(this.t / this. timeToTouchdown)
     }
 }
