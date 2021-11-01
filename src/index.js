@@ -15,8 +15,10 @@ import soundSprite from "@assets/audio/sprite.mp3"
 import soundMeta from "@assets/audio/sprite.cson"
 import texatlasId from "@assets/images/texatlas.png"
 import atlasmetaId from "@assets/images/atlasmeta.cson"
-import bgDataId from "@assets/levels/background.cson"
 import particlesId from "@assets/particles/all.cson"
+import arrowGreenId from "@assets/images/ui/arrow_green.png"
+import arrowRedId from "@assets/images/ui/arrow_red.png"
+import arrowBlueId from "@assets/images/ui/arrow_blue.png"
 
 const { viewport } = config
 const renderer = createRenderer({ cnvQry: "#arena", scene: null, background: "#000000", viewport }) // scene will be injected by game
@@ -28,11 +30,10 @@ const assets = [
     { url: soundMeta, msg: "loading audio sprite metadata"},
     { url: texatlasId, msg: "loading images" },
     { url: atlasmetaId, msg: "loading texture atlas" },
+    arrowGreenId,
+    arrowRedId,
+    arrowBlueId
 ]
-
-if (!config.isMobile) {
-    assets.push(bgDataId)
-}
 
 const screenFactories = {
     [screenNames.LOADING]: game => new LoadingScreen({ game, uiRoot, assets }),
