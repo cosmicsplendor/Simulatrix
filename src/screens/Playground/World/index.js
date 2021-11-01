@@ -12,7 +12,7 @@ class World extends Node {
             assetsCache.load([ dataUrl ])
             assetsCache.once("load", () => {
                 const data = assetsCache.get(dataUrl)
-                const newLocation = new NextLocationConstructor({ data, uiRoot, next })
+                const newLocation = new NextLocationConstructor({ data, uiRoot, assetsCache, next })
                 this.children.forEach(child => child.remove()) // clear and destroy children
                 this.add(newLocation) // add new child
                 assetsCache.off("error")

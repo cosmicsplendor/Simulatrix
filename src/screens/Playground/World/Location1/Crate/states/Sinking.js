@@ -5,14 +5,16 @@ class Sinking {
     timeToTouchdown = 2
     distToBottom = null
     sartingPosY = null
-    constructor(crate, bottomY, uiRoot) {
+    pushdownArrow = null
+    constructor(crate, bottomY, { pushdownArrow }) {
         this.crate = crate
         this.maxY = bottomY - crate.h
-        this.uiRoot = uiRoot
+        this.pushdownArrow = pushdownArrow
     }
     onEnter() {
         this.startingPosY = this.crate.pos.y
         this.distToBottom = this.maxY - this.startingPosY
+        this.pushdownArrow.show()
     }
     update(dt) {
         this.t += dt
@@ -20,6 +22,7 @@ class Sinking {
             return
         }
         this.crate.pos.y = this.startingPosY + this.distToBottom * easingFns.linear(this.t / this. timeToTouchdown)
+        this.pushdownArrow.anchor(this.crate.pos.x, this.crate.pos.y, this.crate.w, this.crate.h)
     }
 }
 

@@ -4,7 +4,7 @@ class Floating {
     t = 0
     amp = 9
     period = Math.PI
-    decayFactor = 0.9
+    decayFactor = 0.8
     constructor(crate) {
         this.crate = crate
     }

@@ -1,7 +1,7 @@
 .imgBtn {
     background-color: transparent;
     cursor: pointer;
-    transition: opacity 0.25s linear;
+    transition: opacity 0.3s linear;
 }
 
 .loadingDot {

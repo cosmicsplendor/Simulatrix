@@ -1,19 +1,30 @@
 import { TexRegion } from "@lib/entities"
 
+import arrowGreenId from "@assets/images/ui/arrow_green.png"
+import arrowRedId from "@assets/images/ui/arrow_red.png"
+import arrowBlueId from "@assets/images/ui/arrow_blue.png"
+
 import FallingDown from "./states/FallingDown"
 import Decelerating from "./States/Decelerating"
 import Floating from "./states/Floating"
 import Sinking from "./states/Sinking"
+import initUI from "./initUI"
 
 export default class Crate extends TexRegion {
     velY = 0
-    constructor({ equilibriumY, surfaceY, bottomY, uiRoot, ...rest }) {
+    constructor({ equilibriumY, surfaceY, bottomY, uiRoot, assetsCache, ...rest }) {
         super({ frame: "crate", ...rest })
+        const uiImages = {
+            arrowGreen: assetsCache.get(arrowGreenId),
+            arrowRed: assetsCache.get(arrowRedId),
+            arrowBlue: assetsCache.get(arrowBlueId),
+        }
+        const ui = initUI(uiRoot, uiImages)
         const states = {
             "falling-down": new FallingDown(this, surfaceY),
             "decelerating": new Decelerating(this, equilibriumY),
             "floating": new Floating(this),
-            "sinking": new Sinking(this, bottomY, uiRoot)
+            "sinking": new Sinking(this, bottomY, ui)
         }
         this.switchState = (name, ...params) => {
             this.state = states[name]
