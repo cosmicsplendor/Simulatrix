@@ -15,7 +15,9 @@ class World extends Node {
                 const newLocation = new NextLocationConstructor({ data, next })
                 this.children.forEach(child => child.remove()) // clear and destroy children
                 this.add(newLocation) // add new child
+                assetsCache.off("error")
             })
+            assetsCache.once("error", console.log)
         }
         next()
     }
