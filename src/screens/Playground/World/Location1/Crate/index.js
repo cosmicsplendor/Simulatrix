@@ -1,13 +1,12 @@
 import { TexRegion } from "@lib/entities"
 import { easingFns } from "@lib/utils/math"
 
-const gravity = 2500
 export default class Crate extends TexRegion {
     velY = 0
     constructor({ equilibriumY, surfaceY, bottomY, ...rest }) {
         super({ frame: "crate", ...rest })
         const states = {
-            "falling-down": new FallingDown(this, gravity, surfaceY),
+            "falling-down": new FallingDown(this, surfaceY),
             "decelerating": new Decelerating(this, equilibriumY),
             "floating": new Floating(this),
             "sinking": new Sinking(this, bottomY)
@@ -26,9 +25,9 @@ export default class Crate extends TexRegion {
 }
 
 class FallingDown {
-    constructor(crate, gravity, surfaceY) {
+    gravity = 2500
+    constructor(crate, surfaceY) {
         this.crate = crate
-        this.gravity = gravity
         this.maxY = surfaceY - crate.h
     }
     update(dt) {
@@ -43,14 +42,13 @@ class FallingDown {
 }
 
 class Decelerating {
+    t = 0
+    timeToTouchdown = 1.2
     initialY = null
     distToFall = null
     constructor(crate, equilibriumY) {
         this.crate = crate
         this.equilibriumY = equilibriumY
-
-        this.t = 0
-        this.timeToTouchdown = 1.2
     }
     onEnter() {
         this.initialY = this.crate.pos.y
@@ -66,14 +64,14 @@ class Decelerating {
 }
 
 class Floating {
-    meanY = null
     timeout = 4
+    meanY = null
+    t = 0
+    amp = 9
+    period = Math.PI
+    decayFactor = 0.9
     constructor(crate) {
         this.crate = crate
-
-        this.period = Math.PI
-        this.t = 0
-        this.amp = 9
     }
     onEnter() {
         this.meanY = this.crate.pos.y
@@ -91,7 +89,7 @@ class Floating {
 
         if (this.t > this.period) {
             this.t = 0
-            this.amp = this.amp * 0.9 // amplitude decays exponentially
+            this.amp = this.amp * this.decayFactor // amplitude decays exponentially
         }
         this.crate.pos.y = this.meanY - this.amp * Math.sin(2 * this.t)
     }
