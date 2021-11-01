@@ -14,7 +14,7 @@ class Bubbling {
     update(dt) {
         this.t += dt
         if (this.t > this.timeToSurface) {
-            return this.crate.switchState("floating")
+            return this.crate.switchState("floating", Math.PI / 2)
         }
         this.crate.pos.y = this.posY0 - this.crate.h * easingFns.quadOut(this.t / this.timeToSurface)
     }

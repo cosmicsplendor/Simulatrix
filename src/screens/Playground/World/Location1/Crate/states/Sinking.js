@@ -2,8 +2,8 @@ import { easingFns } from "@lib/utils/math"
 
 class Sinking {
     t = 0
-    timeToTouchdown = 1.5
-    timeout = 4
+    timeToTouchdown = 2
+    timeout = 6
     distToBottom = null
     sartingPosY = null
     pushdownArrow = null
@@ -31,7 +31,7 @@ class Sinking {
         if (this.t >= this.timeToTouchdown) {
             return
         }
-        this.crate.pos.y = this.startingPosY + this.distToBottom * easingFns.quadOut(this.t / this. timeToTouchdown)
+        this.crate.pos.y = this.startingPosY + this.distToBottom * easingFns.sin(this.t / this. timeToTouchdown)
         this.pushdownArrow.anchor(this.crate.pos.x, this.crate.pos.y, this.crate.w, this.crate.h)
     }
 }
