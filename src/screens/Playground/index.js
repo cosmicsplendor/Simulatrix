@@ -15,7 +15,7 @@ class Playground extends Node {
         game.renderer.tint = [ 0.0125, -0.025, -0.0125, 0 ]
     }
     onEnter() {
-        const world = new World({ assetsCache: this.game.assetsCache })
+        const world = new World({ assetsCache: this.game.assetsCache, uiRoot: this.uiRoot })
         this.add(world)
     }
 }

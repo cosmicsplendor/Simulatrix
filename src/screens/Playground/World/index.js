@@ -2,7 +2,7 @@ import { Node } from "@lib"
 import Location1 from "./Location1"
 class World extends Node {
     children = []
-    constructor({ assetsCache }) {
+    constructor({ assetsCache, uiRoot }) {
         super({ })
         const locations = [ Location1 ]
         const next = () => {
@@ -12,7 +12,7 @@ class World extends Node {
             assetsCache.load([ dataUrl ])
             assetsCache.once("load", () => {
                 const data = assetsCache.get(dataUrl)
-                const newLocation = new NextLocationConstructor({ data, next })
+                const newLocation = new NextLocationConstructor({ data, uiRoot, next })
                 this.children.forEach(child => child.remove()) // clear and destroy children
                 this.add(newLocation) // add new child
                 assetsCache.off("error")

@@ -5,9 +5,10 @@ class Sinking {
     timeToTouchdown = 2
     distToBottom = null
     sartingPosY = null
-    constructor(crate, bottomY) {
+    constructor(crate, bottomY, uiRoot) {
         this.crate = crate
         this.maxY = bottomY - crate.h
+        this.uiRoot = uiRoot
     }
     onEnter() {
         this.startingPosY = this.crate.pos.y
@@ -18,7 +19,7 @@ class Sinking {
         if (this.t >= this.timeToTouchdown) {
             return
         }
-        this.crate.pos.y = this.startingPosY + this.distToBottom * easingFns.smoothStep(this.t / this. timeToTouchdown)
+        this.crate.pos.y = this.startingPosY + this.distToBottom * easingFns.linear(this.t / this. timeToTouchdown)
     }
 }
 
