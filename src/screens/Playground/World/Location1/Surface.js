@@ -26,7 +26,7 @@ class Surface extends Node {
         this.period = Math.PI
     }
     set overflowHeight(val) {
-        const newHeight = clamp(0, this.maxHeight, Math.round(val))
+        const newHeight = clamp(0, this.maxHeight, val)
         const newY = this.yMax - newHeight
         const newTexY = this.texYMax - newHeight
         for (let i = 0; i < this.numEl; i++) {
