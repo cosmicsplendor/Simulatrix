@@ -7,7 +7,7 @@ class Sinking {
     distToBottom = null
     sartingPosY = null
     pushdownArrow = null
-    constructor(crate, equilibriumY, { pushdownArrow }) {
+    constructor(crate, equilibriumY, pushdownArrow) {
         this.crate = crate
         this.maxY = equilibriumY + crate.h
         this.pushdownArrow = pushdownArrow

@@ -25,8 +25,8 @@ export default class Crate extends TexRegion {
             "falling-down": new FallingDown(this, surfaceY),
             "decelerating": new Decelerating(this, equilibriumY),
             "floating": new Floating(this),
-            "sinking": new Sinking(this, equilibriumY, ui),
-            "bubbling": new Bubbling(this)
+            "sinking": new Sinking(this, equilibriumY, ui.pushdownArrow),
+            "bubbling": new Bubbling(this, ui.pushupArrow)
         }
         this.switchState = (name, ...params) => {
             this.state = states[name]

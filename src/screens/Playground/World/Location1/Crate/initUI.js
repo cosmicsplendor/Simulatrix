@@ -4,22 +4,32 @@ import { calcStacked } from "@utils/entity"
 import styles from "./style.css"
 
 const PUSHDOWN = "pushdown"
+const PUSHUP = "pushup"
+
+const createArrowWrapper = (arrowDomEl, pos, yOffset) => {
+    return Object.freeze({
+        show() {
+            arrowDomEl.show()
+        },
+        hide() {
+            arrowDomEl.hide()
+        },
+        anchor(x, y, width, height) {
+            arrowDomEl.pos = calcStacked({ x, y, width, height }, arrowDomEl, pos, 0, yOffset)
+        }
+    })
+}
 const initUI = (uiRoot, images) => {
-    uiRoot.content = imgBtn(PUSHDOWN, images.arrowRed, styles.pushdownArrow)
+    uiRoot.content = `
+        ${imgBtn(PUSHDOWN, images.arrowRed, styles.pushdownArrow)}
+        ${imgBtn(PUSHUP, images.arrowGreen, styles.pushupArrow)}
+    `
     const pushdownArrow = uiRoot.get(`#${PUSHDOWN}`)
+    const pushupArrow = uiRoot.get(`#${PUSHUP}`)
 
     return {
-        pushdownArrow: Object.freeze({
-            show() {
-                pushdownArrow.show()
-            },
-            hide() {
-                pushdownArrow.hide()
-            },
-            anchor(x, y, width, height) {
-                pushdownArrow.pos = calcStacked({ x, y, width, height }, pushdownArrow, "top", 0, -10)
-            }
-        }),
+        pushdownArrow: createArrowWrapper(pushdownArrow, "top", -10),
+        pushupArrow: createArrowWrapper(pushupArrow, "bottom", 10),
         teardown: () => {
             uiRoot.clear()
         }

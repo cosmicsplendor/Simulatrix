@@ -1,3 +1,7 @@
 .pushdownArrow {
     opacity: 0
 }
+.pushupArrow {
+    composes: pushdownArrow;
+    transform: rotate(180deg);
+}
