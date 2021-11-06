@@ -1,25 +1,28 @@
 class Floating {
-    timeout = Math.PI * 2.25
     meanY = null
-    t = 0
-    amp = 12
     period = Math.PI
     decayFactor = 0.8
     constructor(crate) {
         this.crate = crate
     }
-    onEnter(t = 0) {
+    onEnter(nextState, t = 0, timeout = Math.PI * 2.25, amp = 12) {
+        if (!nextState) {
+            throw new Error(`Floating state needs nextState to be passed`)
+        }
         this.meanY = this.crate.pos.y
-        this.timeout = Math.PI * 2.25
+        this.timeout = timeout
         this.t = t
-        this.amp = 12
+        this.amp = amp
+        this.nextState = nextState
     }
     update(dt) {
         this.t += dt
         this.timeout -= dt
         
         if (this.timeout < 0) {
-            this.crate.switchState("sinking")
+            this.crate.switchState(this.nextState)
+            this.beenHereAlready = true
+            return
         }
         if (this.t > this.period) {
             this.t = 0
