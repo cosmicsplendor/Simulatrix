@@ -16,7 +16,7 @@ class Decelerating {
     update(dt) {
         this.t += dt
         if (this.t > this.timeToTouchdown) {
-            this.crate.switchState("floating")
+            this.crate.switchState("floating", "sinking")
         }
         this.crate.pos.y = this.initialY + this.distToFall * easingFns.quadOut(this.t / this.timeToTouchdown)
     }

@@ -1,5 +1,5 @@
 import { Node, TexRegion } from "@lib"
-import { clamp, easingFns } from "@utils/math"
+import { clamp } from "@utils/math"
 
 class SurfaceElement extends TexRegion {
     constructor({ ...rest }) {
@@ -40,7 +40,7 @@ class Surface extends Node {
         this.t += dt
         if (this.t > this.period) {
             this.t = 0
-            this.amp = this.amp * 0.9 // amplitude decays exponentially
+            this.amp = this.amp * 0.95 // amplitude decays exponentially
         }
         this.overflowHeight = this.meanHeight + this.amp * Math.sin(2 * this.t) * Math.sin(2 * this.t)
     }

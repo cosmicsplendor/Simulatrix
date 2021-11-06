@@ -9,6 +9,7 @@ import Decelerating from "./States/Decelerating"
 import Floating from "./states/Floating"
 import Sinking from "./states/Sinking"
 import Bubbling from "./states/Bubbling"
+import SinkingUnderWeight from "./states/SinkingUnderWeight"
 import initUI from "./initUI"
 
 export default class Crate extends TexRegion {
@@ -26,7 +27,8 @@ export default class Crate extends TexRegion {
             "decelerating": new Decelerating(this, equilibriumY),
             "floating": new Floating(this),
             "sinking": new Sinking(this, equilibriumY, ui.pushdownArrow),
-            "bubbling": new Bubbling(this, ui.pushupArrow)
+            "bubbling": new Bubbling(this, ui.pushupArrow),
+            "sinking-under-weight": new SinkingUnderWeight(this, surfaceY, equilibriumY)
         }
         this.switchState = (name, ...params) => {
             this.state = states[name]
