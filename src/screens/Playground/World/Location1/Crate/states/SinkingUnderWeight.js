@@ -5,13 +5,13 @@ import Timer from "@utils/Timer"
 class SinkingUnderWeight {
     MAX_TYRES = 2
     tyresToStack = 2
-    duration = 1
+    duration = 2
     constructor(crate, surfaceY, equilbriumY) {
         this.crate = crate
         this.surfaceY = surfaceY
         this.equilbriumY = equilbriumY
 
-        this.sinkStep = surfaceY - equilbriumY - 8
+        this.sinkStep = surfaceY - equilbriumY - 12
     }
     stackTyre() {
         this.tyresToStack--
@@ -28,7 +28,9 @@ class SinkingUnderWeight {
                 this.crate.pos.y = sunkFrom + this.sinkStep * easingFns.smoothStep(f)
             },
             () => {
-                if (this.tyresToStack < 1) return
+                if (this.tyresToStack < 1) {
+                    return this.crate.switchState("tugging")
+                }
                 this.crate.switchState("sinking-under-weight")
             }
         )

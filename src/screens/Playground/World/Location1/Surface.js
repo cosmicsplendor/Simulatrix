@@ -13,7 +13,9 @@ class Surface extends Node {
         const elWidth = 48, elHeight = 48
         this.numEl = numEl
         for (let i = 0; i < numEl; i++) {
-            this.add(new SurfaceElement({ pos: { y, x: x + i * elWidth } }))
+            const el = new SurfaceElement({ pos: { y, x: x + i * elWidth } })
+            el.smooth = true
+            this.add(el)
         }
         this.texYMax = this.children[0].frame[1] + elHeight
         this.maxHeight = elHeight
