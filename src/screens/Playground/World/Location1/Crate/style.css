@@ -5,3 +5,14 @@
     composes: pushdownArrow;
     transform: rotate(180deg);
 }
+.boundingBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    opacity: 0;
+    transition: 0.25s linear opacity;
+    border: 2px dashed #8e9daffa;
+    border-radius: 5px;
+    box-sizing: border-box;
+}

@@ -11,6 +11,7 @@ import Sinking from "./states/Sinking"
 import Bubbling from "./states/Bubbling"
 import SinkingUnderWeight from "./states/SinkingUnderWeight"
 import Tugging from "./states/Tugging"
+import HookedUp from "./states/HookedUp"
 import initUI from "./initUI"
 
 export default class Crate extends TexRegion {
@@ -30,7 +31,8 @@ export default class Crate extends TexRegion {
             "sinking": new Sinking(this, equilibriumY, ui.pushdownArrow),
             "bubbling": new Bubbling(this, ui.pushupArrow),
             "sinking-under-weight": new SinkingUnderWeight(this, surfaceY, equilibriumY),
-            "tugging": new Tugging(this)
+            "tugging": new Tugging(this, ui),
+            "hooked-up": new HookedUp(this)
         }
         this.switchState = (name, ...params) => {
             this.state = states[name]
@@ -41,6 +43,6 @@ export default class Crate extends TexRegion {
         this.switchState("falling-down")
     }
     update(dt) {
-        this.state.update(dt)
+        this.state.update && this.state.update(dt)
     }
 }

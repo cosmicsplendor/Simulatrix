@@ -19,7 +19,7 @@ class Bubbling {
             return this.crate.switchState("floating", "sinking-under-weight", Math.PI / 2)
         }
         this.crate.pos.y = this.posY0 - this.crate.h * easingFns.quadOut(this.t / this.timeToSurface)
-        this.pushupArrow.anchor(this.crate.pos.x, this.crate.pos.y, this.crate.w, this.crate.h)
+        this.pushupArrow.anchor(this.crate.pos.x, this.crate.pos.y, this.crate.w, this.crate.h, "bottom", 10)
     }
 }
 

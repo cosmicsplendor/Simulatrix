@@ -11,13 +11,15 @@ class SinkingUnderWeight {
         this.surfaceY = surfaceY
         this.equilbriumY = equilbriumY
 
-        this.sinkStep = surfaceY - equilbriumY - 12
+        this.sinkStep = (surfaceY - equilbriumY) * 0.5
     }
     stackTyre() {
         this.tyresToStack--
         const tyre = new TexRegion({ frame: "tyre" })
         tyre.pos.y = -tyre.h * (this.MAX_TYRES - this.tyresToStack)
         this.crate.add(tyre)
+        tyre.alpha = 0
+        Timer.attachedTo(tyre)(0.5, f => tyre.alpha = f)
     }
     onEnter() {
         this.stackTyre()
@@ -32,7 +34,8 @@ class SinkingUnderWeight {
                     return this.crate.switchState("tugging")
                 }
                 this.crate.switchState("sinking-under-weight")
-            }
+            },
+            0.25
         )
     }
     update(dt) {

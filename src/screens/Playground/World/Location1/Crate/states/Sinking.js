@@ -32,7 +32,7 @@ class Sinking {
             return
         }
         this.crate.pos.y = this.startingPosY + this.distToBottom * easingFns.sin(this.t / this. timeToTouchdown)
-        this.pushdownArrow.anchor(this.crate.pos.x, this.crate.pos.y, this.crate.w, this.crate.h)
+        this.pushdownArrow.anchor(this.crate.pos.x, this.crate.pos.y, this.crate.w, this.crate.h, "top", -10)
     }
 }
 
